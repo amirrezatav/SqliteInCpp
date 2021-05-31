@@ -3,12 +3,55 @@
 + [Dowload C Source Code and Header File](https://www.sqlite.org/download.html)
 + Download the video of the first session of the online class
 + Download the video of the second session of the online class
-# Important Points
+### Content 
+- [SQLite in C++](#sqlite-in-c)
+    - [Content](#content)
+- [Sqlite Syntax](#sqlite-syntax)
+  - [Data type](#data-type)
+  - [**Primary Key PK**](#primary-key-pk)
+  - [**Foreign Key FK**](#foreign-key-fk)
+  - [**INSERT**](#insert)
+    - [Example :](#example-)
+  - [**SELECT**](#select)
+  - [**Operators**](#operators)
+  - [**WHERE**](#where)
+  - [**The AND Operator**](#the-and-operator)
+  - [**The OR Operator**](#the-or-operator)
+  - [**Expressions**](#expressions)
+  - [**Boolean Expressions**](#boolean-expressions)
+  - [**Numeric Expression**](#numeric-expression)
+  - [**Date Expressions**](#date-expressions)
+  - [**UPDATE**](#update)
+    - [Example](#example)
+  - [**DELETE**](#delete)
+    - [Example](#example-1)
+  - [**LIMIT**](#limit)
+    - [Example](#example-2)
+  - [**ORDER BY**](#order-by)
+    - [Example](#example-3)
+  - [**GROUP BY**](#group-by)
+    - [Example](#example-4)
+  - [**HAVING**](#having)
+    - [Example](#example-5)
+  - [**DISTINCT**](#distinct)
+    - [Example](#example-6)
+- [**Cpp APIS**](#cpp-apis)
+  - [**Database Connection Handle**](#database-connection-handle)
+  - [**Opening A New Database Connection**](#opening-a-new-database-connection)
+  - [**Prepared Statement Object**](#prepared-statement-object)
+  - [**Compiling An SQL Statement**](#compiling-an-sql-statement)
+  - [**Binding Values To Prepared Statements**](#binding-values-to-prepared-statements)
+  - [**Evaluate An SQL Statement**](#evaluate-an-sql-statement)
+  - [**Destroy A Prepared Statement Object**](#destroy-a-prepared-statement-object)
+  - [**Error Codes And Messages**](#error-codes-and-messages)
+  - [**One Step Query Execution Interface**](#one-step-query-execution-interface)
+    - [**CallBack Function**](#callback-function)
+
+# Sqlite Syntax
 ## Data type
 SQLite provides five primitive data types which are referred to as storage classes.
-
 | Storage Class | Description|
-|---------------|------------|
+|:---------------:|:------------|
 |NULL|The value is a NULL value.|
 |INTEGER|The value is a signed integer, stored in 1, 2, 3, 4, 6, or 8 bytes depending on the magnitude of the value.|
 |REAL|The value is a floating point value, stored as an 8-byte IEEE floating point number.|
@@ -31,7 +74,7 @@ If you use the TEXT storage class to store date and time value, you need to use 
 `YYYY-MM-DD HH:MM:SS.SSS`
 
 
-## Primary Key (PK)
+## **Primary Key PK**
 
 A primary key is a column or group of columns used to identify the uniqueness of rows in a table. Each table has one and only one primary key. It is possible that primary key has only one column or primary key consists of two or more columns
 
@@ -43,7 +86,7 @@ Notice that if you assign another integer type such as BIGINT and UNSIGNED INT t
 
 Because the rowid table organizes its data as a B-tree, querying and sorting data of a rowid table are very fast. It is faster than using a primary key which is not an alias of the rowid.
 
-## Foreign Key (FK)
+## **Foreign Key FK**
 
 A foreign key is a key used to link two tables together. This is sometimes also called as a referencing key.
 
@@ -53,18 +96,18 @@ The relationship between 2 tables matches the Primary Key in one of the tables w
 
 If a table has a primary key defined on any field(s), then you cannot have two records having the same value of that field(s).
 
-## INSERT 
+## **INSERT**
 SQLite INSERT INTO Statement is used to add new rows of data into a table in the database.
 ```sql
 INSERT INTO TABLE_NAME [(column1, column2, column3,...columnN)]  
 VALUES (value1, value2, value3,...valueN);
 ```
-For Example : 
+### Example : 
 ```cpp
 	sql = "INSERT INTO Student (ID,FName,LName,Photo) VALUES(? , ? , 'Tavkoli', ? ); ";
 ```
 
-## SELECT 
+## **SELECT** 
 SQLite SELECT statement is used to fetch the data from a SQLite database table which returns data in the form of a result table. These result tables are also called result sets.
 ```sql 
 SELECT column1, column2, columnN FROM table_name;
@@ -78,10 +121,10 @@ If you want to fetch only selected fields of Studen table, then use the followin
 SELECT ID, FName FROM COMPANY;
 ```
 
-## Operators
+## **Operators**
 Assume variable a holds 10 and variable b holds 20, then SQLite comparison operators will be used as follows
 |Operator	|Description	|Example|
-|--------|-------------|--------|
+|:--------:|-------------|:--------:|
 |==|Checks if the values of two operands are equal or not, if yes then the condition becomes true.	|(a == b) is not true.|
 |!=|Checks if the values of two operands are equal or not, if the values are not equal, then the condition becomes true.|(a != b) is true.|
 |>|Checks if the values of the left operand is greater than the value of the right operand, if yes then the condition becomes true.	|(a > b) is not true.|
@@ -96,7 +139,7 @@ Assume variable a holds 10 and variable b holds 20, then SQLite comparison opera
 |OR|The OR operator is used to combine multiple conditions in an SQL statement's WHERE clause.||
 |IS NULL|The NULL operator is used to compare a value with a NULL value.||
 
-## WHERE 
+## **WHERE** 
 SQLite WHERE clause is used to specify a condition while fetching the data from one table or multiple tables.
 
 If the given condition is satisfied, means true, then it returns the specific value from the table. You will have to use WHERE clause to filter the records and fetching only necessary records.
@@ -105,20 +148,20 @@ SELECT column1, column2, columnN
 FROM table_name
 WHERE [condition]
 ```
-## The AND Operator
+## **The AND Operator**
 ```
 SELECT column1, column2, columnN 
 FROM table_name
 WHERE [condition1] AND [condition2]...AND [conditionN];
 ```
-## The OR Operator
+## **The OR Operator**
 ```sql
 SELECT column1, column2, columnN 
 FROM table_name
 WHERE [condition1] OR [condition2]...OR [conditionN]
 ```
 
-## Expressions
+## **Expressions**
 
 An expression is a combination of one or more values, operators, and SQL functions that evaluate to a value.
 
@@ -131,7 +174,7 @@ SELECT column1, column2, columnN
 FROM table_name 
 WHERE [CONDITION | EXPRESSION];
 ```
-## Boolean Expressions
+## **Boolean Expressions**
 ```sql
 SELECT column1, column2, columnN 
 FROM table_name 
@@ -160,7 +203,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 4           James        24          Houston   10000.0
 ```
 
-## Numeric Expression
+## **Numeric Expression**
 These expressions are used to perform any mathematical operation in any query. Following is the syntax −
 ```sql
 SELECT numerical_expression as OPERATION_NAME
@@ -176,14 +219,14 @@ There are several built-in functions such as avg(), sum(), count(), etc., to per
 SELECT COUNT(*) AS "RECORDS" FROM COMPANY; 
 RECORDS = 7
 ```
-## Date Expressions
+## **Date Expressions**
 Date Expressions returns the current system date and time values. These expressions are used in various data manipulations.
 ```
 SELECT CURRENT_TIMESTAMP;
 ```
 `CURRENT_TIMESTAMP = 2013-03-17 10:43:35`
 
-## UPDATE 
+## **UPDATE** 
 SQLite UPDATE Query is used to modify the existing records in a table. You can use WHERE clause with UPDATE query to update selected rows, otherwise all the rows would be updated.
 
 Syntax
@@ -241,7 +284,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 7           James       24          Texas       20000.0
 ```
 You can combine N number of conditions using AND or OR operators.
-## DELETE 
+## **DELETE** 
 SQLite DELETE Query is used to delete the existing records from a table. You can use WHERE clause with DELETE query to delete the selected rows, otherwise all the records would be deleted.
 
 Following is the basic syntax of DELETE query with WHERE clause.
@@ -286,7 +329,7 @@ If you want to DELETE all the records from COMPANY table, you do not need to use
 sql DELETE FROM COMPANY;
 ```
 Now, COMPANY table does not have any record as all the records have been deleted by DELETE statement.
-## LIMIT
+## **LIMIT**
 SQLite LIMIT clause is used to limit the data amount returned by the SELECT statement.
 ```sql
 SELECT column1, column2, columnN 
@@ -343,7 +386,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 4           Mark        25          Rich-Mond   65000.0
 5           David       27          Texas       85000.0
 ```
-## ORDER BY
+## **ORDER BY**
 SQLite ORDER BY clause is used to sort the data in an ascending or descending order, based on one or more columns.
 
 ```sql
@@ -418,7 +461,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 2           Allen       25          Texas       15000.0
 ```
 
-##  GROUP BY
+##  **GROUP BY**
 SQLite GROUP BY clause is used in collaboration with the SELECT statement to arrange identical data into groups.
 
 GROUP BY clause follows the WHERE clause in a SELECT statement and precedes the ORDER BY clause.
@@ -435,7 +478,7 @@ You can use more than one column in the GROUP BY clause. Make sure whatever colu
 
 ### Example
 Consider COMPANY table with the following records.
-
+```
 ID          NAME        AGE         ADDRESS     SALARY
 ----------  ----------  ----------  ----------  ----------
 1           Paul        32          California  20000.0
@@ -445,12 +488,13 @@ ID          NAME        AGE         ADDRESS     SALARY
 5           David       27          Texas       85000.0
 6           Kim         22          South-Hall  45000.0
 7           James       24          Houston     10000.0
-If you want to know the total amount of salary on each customer, then GROUP BY query will be as follows −
+```
+If you want to know the total amount of salary on each customer, then GROUP BY query will be as follows 
 
 ```sql
 SELECT NAME, SUM(SALARY) FROM COMPANY GROUP BY NAME;
 ```
-This will produce the following result −
+This will produce the following result 
 ```
 NAME        SUM(SALARY)
 ----------  -----------
@@ -517,7 +561,7 @@ James       20000
 David       85000
 Allen       15000
 ```
-## HAVING
+## **HAVING**
 HAVING clause enables you to specify conditions that filter which group results appear in the final results.
 
 The WHERE clause places conditions on the selected columns, whereas the HAVING clause places conditions on groups created by GROUP BY clause.
@@ -581,7 +625,7 @@ ID          NAME        AGE         ADDRESS     SALARY
 ----------  ----------  ----------  ----------  ----------
 10          James       45          Texas       5000
 ```
-## DISTINCT
+## **DISTINCT**
 SQLite DISTINCT keyword is used in conjunction with SELECT statement to eliminate all the duplicate records and fetching only the unique records.
 
 There may be a situation when you have multiple duplicate records in a table. While fetching such records, it makes more sense to fetch only unique records instead of fetching duplicate records.
@@ -645,13 +689,14 @@ David
 Kim
 James
 ```
-## Database Connection Handle
+# **Cpp APIS**
+## **Database Connection Handle**
 ```cpp
 typedef struct sqlite3 sqlite3;
 ```
 Each open SQLite database is represented by a pointer to an instance of the opaque structure named "sqlite3"
 
-## Opening A New Database Connection
+## **Opening A New Database Connection**
 ```cpp
 int sqlite3_open(
   const char *filename,   /* Database filename (UTF-8) */
@@ -659,7 +704,7 @@ int sqlite3_open(
 );
 ```
 These routines open an SQLite database file as specified by the filename argument. 
-## Prepared Statement Object
+## **Prepared Statement Object**
 ```cpp
 typedef struct sqlite3_stmt sqlite3_stmt;
 ```
@@ -674,7 +719,7 @@ The life-cycle of a prepared statement object usually goes like this:
 3. Run the SQL by calling sqlite3_step() one or more times.
 4. Reset the prepared statement using sqlite3_reset() then go back to step 2. Do this zero or more times.
 5. Destroy the object using sqlite3_finalize().
-## Compiling An SQL Statement
+## **Compiling An SQL Statement**
 ```cpp
 int sqlite3_prepare_v2(
   sqlite3 *db,            /* Database handle */
@@ -691,10 +736,9 @@ int sqlite3_prepare_v2(
 3. If the nByte argument is negative, then zSql is read up to the first zero terminator. If nByte is positive, then it is the number of bytes read from zSql. If nByte is zero, then no prepared statement is generated. If the caller knows that the supplied string is nul-terminated, then there is a small performance advantage to passing an nByte parameter that is the number of bytes in the input string including the nul-terminator.
 
 4. If pzTail is not NULL then *pzTail is made to point to the first byte past the end of the first SQL statement in zSql. These routines only compile the first statement in zSql, so *pzTail is left pointing to what remains uncompiled.
-## Binding Values To Prepared Statements
+## **Binding Values To Prepared Statements**
 ```cpp
 int sqlite3_bind_blob(sqlite3_stmt*, int, const void*, int n, void(*)(void*));
-
 int sqlite3_bind_double(sqlite3_stmt*, int, double);
 int sqlite3_bind_int(sqlite3_stmt*, int, int);
 int sqlite3_bind_null(sqlite3_stmt*, int);
@@ -711,22 +755,22 @@ In the SQL statement text input to sqlite3_prepare_v2() and its variants, litera
 $VVV
 ```
 In the templates above, NNN represents an integer literal, and VVV represents an alphanumeric identifier. The values of these parameters (also called "host parameter names" or "SQL parameters") can be set using the sqlite3_bind_*() routines defined here.
-## Evaluate An SQL Statement
+## **Evaluate An SQL Statement**
 ```cpp
 int sqlite3_step(sqlite3_stmt*);
 ```
 After a prepared statement has been prepared using any of sqlite3_prepare_v2(), this function must be called one or more times to evaluate the statement.
-## Destroy A Prepared Statement Object
+## **Destroy A Prepared Statement Object**
 ```cpp
 int sqlite3_finalize(sqlite3_stmt *pStmt);
 ```
 The sqlite3_finalize() function is called to delete a prepared statement. If the most recent evaluation of the statement encountered no errors or if the statement is never been evaluated, then sqlite3_finalize() returns SQLITE_OK. If the most recent evaluation of statement S failed, then sqlite3_finalize(S) returns the appropriate error code or extended error code.
-## Error Codes And Messages
-[See in SQLITE web](https://sqlite.org/rescode.html#extrc)
+## **Error Codes And Messages**
+[**See in SQLITE web**](https://sqlite.org/rescode.html#extrc)
 ```cpp
 const char *sqlite3_errmsg(sqlite3*);
 ```
-## One-Step Query Execution Interface
+## **One Step Query Execution Interface**
 ```cpp
 int sqlite3_exec(
   sqlite3*,                                  /* An open database */
@@ -747,7 +791,7 @@ The 2nd argument to the sqlite3_exec() callback function is the number of column
 If the 2nd parameter to sqlite3_exec() is a NULL pointer, a pointer to an empty string, or a pointer that contains only whitespace and/or SQL comments, then no SQL statements are evaluated and the database is not changed.
 
 
-### CallBack Function
+### **CallBack Function**
 ```cpp
 static int my_special_callback(void *unUsed, int count, char **data, char **columns)
 {
