@@ -1,7 +1,7 @@
 # SQLite in C++
 + Dowload [SQLite Expert Professional](https://soft98.ir/software/programming/15259-SQLite-Expert.html) and [Sqlite](https://www.sqlite.org/download.html) 
 + [Dowload C Source Code and Header File](https://www.sqlite.org/download.html)
-+ Download the video of the first session of the online class
++ [Download the video of the first session of the online class](https://aparat.com/v/hRjI9)
 + Download the video of the second session of the online class
 ### Content 
 - [SQLite in C++](#sqlite-in-c)
